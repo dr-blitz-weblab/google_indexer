@@ -1,0 +1,52 @@
+<tr class="table-row">
+    <td>{item.title}</td>
+    <td>{item.sys_language_uid}</td>
+    <td>
+        <f:if condition="{item.googleindexer_executetime}">
+            <f:then>
+                <f:format.date format="d.m.Y - H:i:s">{item.googleindexer_executetime}</f:format.date>
+            </f:then>
+        </f:if>
+    </td>
+    <td>{item.googleindexer_last_api_answer}</td>
+    <td class="action-buttons">
+        <div class="action-buttons-wrapper">
+            <f:if condition="{item.hidden} == 0">
+                <f:link.action
+                    action="update"
+                    controller="Module"
+                    id="countPages"
+                    arguments="{language:item.sys_language_uid}"
+                    title=" {f:translate(key:'function_flash_pages')}"
+                    class="btn btn-default action-button update-button"
+                >
+                    <f:image src="EXT:google_indexer/Resources/Public/Assets/Icons/update.svg"></f:image>
+                    <span> {f:translate(key: 'btn_update', extensionName: 'google_indexer')}</span>
+                </f:link.action>
+            </f:if>
+            <f:link.action
+                action="checkStatus"
+                controller="Module"
+                id="countPages"
+                arguments="{language:item.sys_language_uid}"
+                title=" {f:translate(key:'function_flash_pages')}"
+                class="btn btn-default action-button check-status-button"
+            >
+                <f:image src="EXT:google_indexer/Resources/Public/Assets/Icons/status.svg"></f:image>
+                <span>{f:translate(key: 'btn_status', extensionName: 'google_indexer')}</span>
+            </f:link.action>
+            <f:link.action
+                action="remove"
+                controller="Module"
+                id="countPages"
+                arguments="{language:item.sys_language_uid}"
+                title=" {f:translate(key:'function_flash_pages')}"
+                class="btn btn-default action-button remove-button"
+            >
+                <f:image src="EXT:google_indexer/Resources/Public/Assets/Icons/remove.svg"></f:image>
+                <span>{f:translate(key: 'btn_remove', extensionName: 'google_indexer')}</span>
+            </f:link.action>
+        </div>
+    </td>
+</tr>
+

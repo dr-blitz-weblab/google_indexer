@@ -1,0 +1,48 @@
+.action-buttons {
+    height: 100%;
+}
+
+.action-buttons-wrapper {
+    height: 100%;
+    display: flex;
+    column-gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.action-button {
+    border: none;
+    height: 32px;
+    padding: 0 8px;
+    font-size: 14px;
+    display: flex;
+    column-gap: 4px;
+    align-items: center;
+    border-radius: 2px;
+    white-space: nowrap;
+    box-shadow: 0 0 0 #00000029;
+}
+
+.action-button:hover {
+    border: none;
+    box-shadow: 0 3px 6px #00000029;
+}
+
+.update-button,
+.update-button:hover {
+    background-color: #1A73E8;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.check-status-button,
+.check-status-button:hover {
+    background-color: #EEEEEE;
+    color: #1A73E8;
+}
+
+.remove-button,
+.remove-button:hover {
+    background-color: #EEEEEE;
+    color: #747474;
+}

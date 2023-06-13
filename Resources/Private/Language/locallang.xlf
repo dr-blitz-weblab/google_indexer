@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns:t3="http://typo3.org/schemas/xliff" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" product-name="google_indexer" date="2022-10-20T18:43:41+02:00">
+		<body>
+			<trans-unit id="header">
+				<source>Google indexer</source>
+			</trans-unit>
+            <trans-unit id="welcome">
+				<source>Ready to go !</source>
+			</trans-unit>
+            <trans-unit id="btn_update">
+				<source>Update</source>
+			</trans-unit>
+            <trans-unit id="btn_remove">
+				<source>Remove</source>
+			</trans-unit>
+            <trans-unit id="btn_status">
+				<source>Check status</source>
+			</trans-unit>
+            <trans-unit id="label_page_title">
+				<source>Page title</source>
+			</trans-unit>
+            <trans-unit id="label_page_language">
+				<source>Language</source>
+			</trans-unit>
+            <trans-unit id="label_page_last_check">
+				<source>Language</source>
+			</trans-unit>
+            <trans-unit id="label_page_api_answer">
+				<source>Api Answer</source>
+			</trans-unit>
+            <trans-unit id="empty">
+				<source>Our extension support only doktype=1</source>
+			</trans-unit>
+            <trans-unit id="missing_config_ile">
+				<source>Missing config file. Please go to: Settings >> Extension Configuration >> Google Indexer</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

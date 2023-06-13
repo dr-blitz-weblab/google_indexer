@@ -1,0 +1,31 @@
+{
+    "name": "drblitz/google-indexer",
+    "type": "typo3-cms-extension",
+    "description": "",
+    "autoload": {
+        "psr-4": {
+            "DrBlitz\\GoogleIndexer\\": "Classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "DR BLITZ WEBLAB",
+            "email": "office@drblitz-weblab.com",
+            "homepage": "https://drblitz-weblab.com/",
+            "role": "Company"
+        }
+    ],
+    "license": [
+        "GPL-2.0-or-later"
+    ],
+    "require": {
+        "typo3/cms-core": "^12.3",
+        "google/apiclient": "^2.12"
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "extension-key": "google_indexer"
+        }
+    }
+}

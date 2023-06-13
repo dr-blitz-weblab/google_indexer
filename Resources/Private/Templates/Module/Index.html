@@ -1,0 +1,32 @@
+<html data-namespace-typo3-fluid="true"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<f:layout name="Module"/>
+<f:section name="Content">
+    <f:be.pageRenderer pageTitle="google_indexer"
+       includeCssFiles="{0: '{f:uri.resource(path:\'Css/Backend.css\')}'}" />
+
+    <f:flashMessages/>
+
+    <f:if condition="{records}">
+        <f:then>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="title-column">{f:translate(key: 'label_page_title', extensionName: 'google_indexer')}</th>
+                        <th class="lang-column">{f:translate(key: 'label_page_language', extensionName: 'google_indexer')}</th>
+                        <th class="last-check-column">{f:translate(key: 'label_page_last_check', extensionName: 'google_indexer')}</th>
+                        <th class="api-answer-column">{f:translate(key: 'label_page_api_answer', extensionName: 'google_indexer')}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <f:for each="{records}" as="item">
+                    <f:render partial="Row" arguments="{item:item}" />
+                </f:for>
+            </table>
+        </f:then>
+        <f:else>
+            <f:render partial="Alert" />
+        </f:else>
+    </f:if>
+</f:section>
+</html>
