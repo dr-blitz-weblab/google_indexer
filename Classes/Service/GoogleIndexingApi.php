@@ -29,7 +29,6 @@ final class GoogleIndexingApi implements SingletonInterface
 
     public static function isConfigFileExist()
     {
-
     }
 
     /**
@@ -88,7 +87,6 @@ final class GoogleIndexingApi implements SingletonInterface
     {
         $content = json_decode($content);
         return $content->error->message;
-
     }
 
     /**
@@ -117,6 +115,5 @@ final class GoogleIndexingApi implements SingletonInterface
                 'message' => $e->getMessage(),
             ];
         }
-
     }
 }

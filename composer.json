@@ -19,7 +19,7 @@
         "GPL-2.0-or-later"
     ],
     "require": {
-        "typo3/cms-core": "^12.3",
+        "typo3/cms-core": "^11.5",
         "google/apiclient": "^2.12"
     },
     "extra": {
