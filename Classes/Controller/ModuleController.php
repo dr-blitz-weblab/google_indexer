@@ -48,8 +48,8 @@ class ModuleController extends ActionController
     protected $view;
 
     public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        protected readonly ConnectionPool $connectionPool
+        protected ModuleTemplateFactory $moduleTemplateFactory,
+        protected ConnectionPool $connectionPool
     ) {
     }
 
