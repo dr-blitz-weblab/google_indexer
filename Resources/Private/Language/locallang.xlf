@@ -35,6 +35,12 @@
             <trans-unit id="missing_config_ile">
 				<source>Missing config file. Please go to: Settings >> Extension Configuration >> Google Indexer</source>
 			</trans-unit>
+			<trans-unit id="delete_page_hooks_ok">
+				<source>Google Api: request has been sent</source>
+			</trans-unit>
+			<trans-unit id="delete_page_hooks_error">
+				<source>Google Api: Upss!!request was not sent </source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
