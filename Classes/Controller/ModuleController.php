@@ -44,8 +44,7 @@ class ModuleController extends ActionController
     private int $pageUid;
 
     public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        protected readonly ConnectionPool $connectionPool
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory
     ) {
     }
 
@@ -65,9 +64,10 @@ class ModuleController extends ActionController
         );
 
         $view = $this->initializeModuleTemplate($this->request);
-        $view->assign(
-            'records',
-            $this->getPage()
+        $view->assignMultiple(
+            [
+                'records' => Extension::getPage($this->pageUid),
+        ]
         );
         return $view->renderResponse();
     }
