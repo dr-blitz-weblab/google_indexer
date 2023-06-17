@@ -48,8 +48,7 @@ class ModuleController extends ActionController
     protected $view;
 
     public function __construct(
-        protected ModuleTemplateFactory $moduleTemplateFactory,
-        protected ConnectionPool $connectionPool
+        protected ModuleTemplateFactory $moduleTemplateFactory
     ) {
     }
 
@@ -67,9 +66,10 @@ class ModuleController extends ActionController
             LocalizationUtility::translate('header', 'google_indexer'),
             FlashMessage::NOTICE
         );
-        $this->view->assign(
-            'records',
-            $this->getPage()
+        $this->view->assignMultiple(
+            [
+                'records' => Extension::getPage($this->pageUid),
+            ]
         );
         return $this->htmlResponse();
     }

@@ -1,7 +1,9 @@
 <?php
 
 // Prevent Script from being called directly
-defined('TYPO3') or die();
+use DrBlitz\GoogleIndexer\Hooks\ProcessCmdmap;
+
+defined('TYPO3_MODE') || die('Access denied.');
 
 // encapsulate all locally defined variables
 (function () {
@@ -20,3 +22,5 @@ defined('TYPO3') or die();
         ]
     );
 })();
+
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = ProcessCmdmap::class;
