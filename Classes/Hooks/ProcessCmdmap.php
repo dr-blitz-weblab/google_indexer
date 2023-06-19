@@ -16,8 +16,9 @@ class ProcessCmdmap
 {
     public function processCmdmap_deleteAction(string $table, int $id, array $recordToDelete, bool $recordWasDeleted, DataHandler $dataHandler): void
     {
-        if ($table === 'pages' && $recordToDelete['doktype'] == 1 &&  Extension::isConfigFileExist()) {
-            $pages = Extension::getPage($id);
+        $allowedDokType = Extension::getAllDokType();
+        if ($table === 'pages' && in_array($recordToDelete['doktype'], $allowedDokType) &&  Extension::isConfigFileExist()) {
+            $pages = Extension::getPage($id, $allowedDokType);
             $apiService = GeneralUtility::makeInstance(GoogleIndexingApi::class);
             foreach ($pages as $page) {
                 $url = Extension::getFrontendUrl($page['uid'], $page['sys_language_uid']);
