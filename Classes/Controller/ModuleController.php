@@ -53,6 +53,7 @@ class ModuleController extends ActionController
      */
     public function indexAction(): ResponseInterface
     {
+
         $isConfigFileExist = Extension::isConfigFileExist();
         if (!$isConfigFileExist) {
             return new ForwardResponse('missingSetup');
@@ -62,11 +63,11 @@ class ModuleController extends ActionController
             LocalizationUtility::translate('header', 'google_indexer'),
             ContextualFeedbackSeverity::NOTICE
         );
-
+        $dokTypes = Extension::getAllDokType();
         $view = $this->initializeModuleTemplate($this->request);
         $view->assignMultiple(
             [
-                'records' => Extension::getPage($this->pageUid),
+                'records' => Extension::getPage($this->pageUid, $dokTypes),
         ]
         );
         return $view->renderResponse();
