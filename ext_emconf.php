@@ -2,13 +2,14 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Google Indexer',
-    'description' => 'Google Indexer',
+    'description' => 'Notify google when you create new pages directly from TYPO3. Supported options: Update, remove and check status',
     'category' => 'module',
-    'author' => '',
+    'author' => 'Krzysztof Napora',
+    'author_company' => 'DR BLITZ WEBLAB',
     'author_email' => 'office@drblitz-weblab.com',
     'state' => 'stable',
     'clearCacheOnLoad' => true,
-    'version' => '1.0.0',
+    'version' => '2.0.0',
     'constraints' => [
         'depends' => [
             'typo3' => '12.0.0-12.9.99',
