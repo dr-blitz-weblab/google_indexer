@@ -40,6 +40,7 @@ class ModuleController extends ActionController
 {
     use LoggerAwareTrait;
     private const TABLE_NAME = 'pages';
+    protected ModuleTemplateFactory $moduleTemplateFactory;
     private int $pageUid;
 
     /**
@@ -48,8 +49,9 @@ class ModuleController extends ActionController
     protected $view;
 
     public function __construct(
-        protected ModuleTemplateFactory $moduleTemplateFactory
+        ModuleTemplateFactory $moduleTemplateFactory
     ) {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
     }
 
     /**
