@@ -9,10 +9,10 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'office@drblitz-weblab.com',
     'state' => 'stable',
     'clearCacheOnLoad' => true,
-    'version' => '1.0.1',
+    'version' => '1.0.2',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.0.0-11.9.99',
+            'typo3' => '11.5.0-11.5.99',
             'php' => '7.4.0-8.2.99',
         ],
         'conflicts' => [],
