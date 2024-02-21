@@ -14,10 +14,16 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ProcessCmdmap
 {
-    public function processCmdmap_deleteAction(string $table, int $id, array $recordToDelete, bool $recordWasDeleted, DataHandler $dataHandler): void
+    public function processCmdmap_deleteAction(
+        string      $table,
+        int         $id,
+        array       $recordToDelete,
+        bool        $recordWasDeleted,
+        DataHandler $dataHandler
+    ): void
     {
         $allowedDokType = Extension::getAllDokType();
-        if ($table === 'pages' && in_array($recordToDelete['doktype'], $allowedDokType) &&  Extension::isConfigFileExist()) {
+        if ($table === 'pages' && in_array($recordToDelete['doktype'], $allowedDokType) && Extension::isConfigFileExist()) {
             $pages = Extension::getPage($id, $allowedDokType);
             $apiService = GeneralUtility::makeInstance(GoogleIndexingApi::class);
             foreach ($pages as $page) {
@@ -38,6 +44,23 @@ class ProcessCmdmap
                 }
             }
 
+        }
+    }
+
+
+    public function processDatamap_preProcessFieldArray(
+        array       &$incomingFieldArray,
+        string      $table,
+        string      $id,
+        DataHandler $dataHandler
+    ): void
+    {
+        if ($table !== 'pages') {
+            return;
+        }
+        if (!\is_int($id)) {
+            $incomingFieldArray['googleindexer_executetime'] = 0;
+            $incomingFieldArray['googleindexer_last_api_answer'] = '';
         }
     }
 

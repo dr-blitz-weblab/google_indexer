@@ -20,7 +20,7 @@ defined('TYPO3') or die();
             'label' => 'LLL:EXT:google_indexer/Resources/Private/Language/locallang_db.xlf:pages.googleindexer_last_api_answer',
             'config' => [
                 'readOnly' => true,
-                'type' => 'text',
+                'type' => 'input',
             ],
         ],
     ]
@@ -28,5 +28,5 @@ defined('TYPO3') or die();
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
     'pages',
-    'googleindexer_executetime,googleindexer_message'
+    '--div--;LLL:EXT:google_indexer/Resources/Private/Language/locallang_db.xlf:pages.tabs.google_indexer,googleindexer_executetime,googleindexer_last_api_answer'
 );
