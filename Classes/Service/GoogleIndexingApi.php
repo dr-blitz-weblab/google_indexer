@@ -10,6 +10,7 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class GoogleIndexingApi implements SingletonInterface
@@ -41,8 +42,12 @@ final class GoogleIndexingApi implements SingletonInterface
     public function execute(string $url, GoogleApi $type): array
     {
         try {
+            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+            $site = $siteFinder->getSiteByPageId($_REQUEST['id']);
+            $jsonKey = $site->getConfiguration()['google_api_key_path'];
+
             $client = new Google_Client();
-            $client->setAuthConfig($this->configFile);
+            $client->setAuthConfig($jsonKey);
             $client->addScope(Indexing::INDEXING);
 
             // Get a Guzzle HTTP Client
@@ -99,8 +104,12 @@ final class GoogleIndexingApi implements SingletonInterface
     public function getNotificationStatus($url): array
     {
         try {
+            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+            $site = $siteFinder->getSiteByPageId($_REQUEST['id']);
+            $jsonKey = $site->getConfiguration()['google_api_key_path'];
+
             $client = new Google_Client();
-            $client->setAuthConfig($this->configFile);
+            $client->setAuthConfig($jsonKey);
             $client->addScope(Indexing::INDEXING);
 
             $httpClient = $client->authorize();
