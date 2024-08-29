@@ -1,10 +1,11 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
+use DrBlitz\GoogleIndexer\Utility\Extension;
 use bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
-use DrBlitz\GoogleIndexer\Utility\Extension;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ExtensionTest extends TestCase
@@ -47,5 +48,33 @@ class ExtensionTest extends TestCase
         GeneralUtility::addInstance(SiteFinder::class, $siteFinderMock);
 
         $this->assertFalse(Extension::isConfigFileExist());
+    }
+
+    public function testGetAllDokTypeWithValidConfig()
+    {
+        $extensionConfigurationMock = $this->createMock(ExtensionConfiguration::class);
+        $extensionConfigurationMock->method('get')
+            ->with('google_indexer', 'doktype')
+            ->willReturn('1,2,3')
+        ;
+
+        GeneralUtility::addInstance(ExtensionConfiguration::class, $extensionConfigurationMock);
+
+        $result = Extension::getAllDokType();
+
+        $this->assertEquals(['1', '2', '3'], $result);
+    }
+
+    public function testGetAllDokTypeWithEmptyConfig()
+    {
+        $extensionConfigurationMock = $this->createMock(ExtensionConfiguration::class);
+        $exception = new ExtensionConfigurationExtensionNotConfiguredException();
+        $extensionConfigurationMock->method('get')->willThrowException($exception);
+
+        GeneralUtility::addInstance(ExtensionConfiguration::class, $extensionConfigurationMock);
+
+        $result = Extension::getAllDokType();
+
+        $this->assertEquals([1], $result);
     }
 }

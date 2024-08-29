@@ -2,6 +2,8 @@
 
 namespace DrBlitz\GoogleIndexer\Utility;
 
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -32,9 +34,17 @@ final class Extension
 
     public static function getAllDokType(): array
     {
-        $configFile = GeneralUtility::makeInstance(ExtensionConfiguration::class)
-            ->get('google_indexer', 'doktype');
-        return explode(',', $configFile) ?? [1];
+        try {
+            $configFile = GeneralUtility::makeInstance(ExtensionConfiguration::class)
+                ->get('google_indexer', 'doktype');
+        } catch (
+            ExtensionConfigurationPathDoesNotExistException |
+            ExtensionConfigurationExtensionNotConfiguredException $exception
+        ) {
+            return [1];
+        }
+
+        return explode(',', $configFile);
     }
 
     public static function getFrontendUrl(int $uid, int $language = 0): string
