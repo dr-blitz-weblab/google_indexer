@@ -3,6 +3,7 @@
 use DrBlitz\GoogleIndexer\Utility\Extension;
 use bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
