@@ -39,7 +39,7 @@ Get this extension via `composer req drblitz/google-indexer`.
  * In the side panel that appears, select the format for your key: JSON is recommended.
 
 ## Upload json config file
-After downloading the JSON file, please go to TYPO3 -> Settings -> Extension Configuration and provide an absolute path to this file. It is recommended to keep this file outside of the public directory.
+After downloading the JSON file, please go to TYPO3 -> Site Management -> Sites -> Edit site configuration -> Google Indexer and provide an absolute path to this file. If you have multiple pages, you can provide a different config file for each of them. It is recommended to keep this file outside of the public directory.
 ![Example form](Documentation/Images/settings.png "Example Form")
 
 ## 2. Grant owner status to your service account

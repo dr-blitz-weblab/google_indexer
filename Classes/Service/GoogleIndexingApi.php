@@ -6,31 +6,13 @@ use DrBlitz\GoogleIndexer\Enumeration\GoogleApi;
 use Google\Service\Indexing;
 use Google_Client;
 use GuzzleHttp\Exception\GuzzleException;
-use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
-use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class GoogleIndexingApi implements SingletonInterface
 {
     private const API_URL = 'https://indexing.googleapis.com/v3';
-    private string $configFile = '';
-
-    /**
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     */
-    public function __construct()
-    {
-        $this->configFile = GeneralUtility::makeInstance(ExtensionConfiguration::class)
-            ->get('google_indexer', 'config_file_path');
-    }
-
-    public static function isConfigFileExist()
-    {
-
-    }
 
     /**
      * @param string $url
@@ -41,8 +23,12 @@ final class GoogleIndexingApi implements SingletonInterface
     public function execute(string $url, GoogleApi $type): array
     {
         try {
+            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+            $site = $siteFinder->getSiteByPageId($_REQUEST['id']);
+            $jsonKey = $site->getConfiguration()['google_api_key_path'];
+
             $client = new Google_Client();
-            $client->setAuthConfig($this->configFile);
+            $client->setAuthConfig($jsonKey);
             $client->addScope(Indexing::INDEXING);
 
             // Get a Guzzle HTTP Client
@@ -99,8 +85,12 @@ final class GoogleIndexingApi implements SingletonInterface
     public function getNotificationStatus($url): array
     {
         try {
+            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+            $site = $siteFinder->getSiteByPageId($_REQUEST['id']);
+            $jsonKey = $site->getConfiguration()['google_api_key_path'];
+
             $client = new Google_Client();
-            $client->setAuthConfig($this->configFile);
+            $client->setAuthConfig($jsonKey);
             $client->addScope(Indexing::INDEXING);
 
             $httpClient = $client->authorize();
