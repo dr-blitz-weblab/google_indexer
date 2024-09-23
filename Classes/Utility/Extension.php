@@ -16,20 +16,16 @@ final class Extension
 {
     private const TABLE_NAME = 'pages';
 
-    public static function isConfigFileExist(): bool
+    public static function isConfigFileExist(int $pageId): bool
     {
         $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-        $sites = $siteFinder->getAllSites();
+        return file_exists($siteFinder->getSiteByPageId($pageId)->getConfiguration()['google_api_key_path']);
+    }
 
-        foreach ($sites as $site) {
-            $config = $site->getConfiguration()['google_api_key_path'];
-
-            if (!file_exists($config)) {
-                return false;
-            }
-        }
-
-        return true;
+    public static function getConfigFile(int $pageId): string
+    {
+        $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
+        return $siteFinder->getSiteByPageId($pageId)->getConfiguration()['google_api_key_path'];
     }
 
     public static function getAllDokType(): array

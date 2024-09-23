@@ -42,6 +42,7 @@ class ModuleController extends ActionController
     use LoggerAwareTrait;
     private const TABLE_NAME = 'pages';
     private int $pageUid;
+    private $connectionPool;
 
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory
@@ -54,7 +55,7 @@ class ModuleController extends ActionController
     public function indexAction(): ResponseInterface
     {
 
-        $isConfigFileExist = Extension::isConfigFileExist();
+        $isConfigFileExist = Extension::isConfigFileExist($this->pageUid);
         if (!$isConfigFileExist) {
             return new ForwardResponse('missingSetup');
         }
@@ -87,7 +88,7 @@ class ModuleController extends ActionController
     public function updateAction(int $language = 0): ResponseInterface
     {
         $url = $this->getFrontendUrl($language);
-        $googleApi =GeneralUtility::makeInstance(GoogleIndexingApi::class);
+        $googleApi =GeneralUtility::makeInstance(GoogleIndexingApi::class, $this->pageUid);
         $type = GoogleApi::cast('URL_UPDATED');
         $response = $googleApi->execute($url, $type);
 
@@ -110,7 +111,7 @@ class ModuleController extends ActionController
     public function removeAction(int $language = 0): ResponseInterface
     {
         $url = $this->getFrontendUrl($language);
-        $googleApi =GeneralUtility::makeInstance(GoogleIndexingApi::class);
+        $googleApi =GeneralUtility::makeInstance(GoogleIndexingApi::class, $this->pageUid);
         $type = GoogleApi::cast('URL_DELETED');
         $response = $googleApi->execute($url, $type);
 
@@ -132,7 +133,7 @@ class ModuleController extends ActionController
     public function checkStatusAction(int $language = 0): ForwardResponse
     {
         $url = $this->getFrontendUrl($language);
-        $googleApi =GeneralUtility::makeInstance(GoogleIndexingApi::class);
+        $googleApi =GeneralUtility::makeInstance(GoogleIndexingApi::class, $this->pageUid);
         $response = $googleApi->getNotificationStatus($url);
         $severity = ContextualFeedbackSeverity::OK;
         if ($response['status'] !== 200) {
