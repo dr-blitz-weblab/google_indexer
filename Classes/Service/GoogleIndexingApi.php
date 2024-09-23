@@ -24,7 +24,21 @@ final class GoogleIndexingApi implements SingletonInterface
     {
         try {
             $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-            $site = $siteFinder->getSiteByPageId($_REQUEST['id']);
+
+            $pid = $_REQUEST['id'] ?? $_REQUEST['cmd']['pages'] ?? null;
+
+            if (is_array($pid)) {
+                $pid = array_key_first($pid);
+            }
+
+            if (!$pid) {
+                return [
+                    'status' => '404',
+                    'message' => 'Site with this page id not found',
+                ];
+            }
+
+            $site = $siteFinder->getSiteByPageId($pid);
             $jsonKey = $site->getConfiguration()['google_api_key_path'];
 
             $client = new Google_Client();
