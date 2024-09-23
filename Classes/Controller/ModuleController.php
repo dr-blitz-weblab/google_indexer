@@ -54,7 +54,7 @@ class ModuleController extends ActionController
     public function indexAction(): ResponseInterface
     {
 
-        $isConfigFileExist = Extension::isConfigFileExist();
+        $isConfigFileExist = Extension::isConfigFileExist($this->pageUid);
         if (!$isConfigFileExist) {
             return new ForwardResponse('missingSetup');
         }

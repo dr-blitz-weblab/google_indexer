@@ -3,6 +3,7 @@
 namespace DrBlitz\GoogleIndexer\Service;
 
 use DrBlitz\GoogleIndexer\Enumeration\GoogleApi;
+use DrBlitz\GoogleIndexer\Utility\Extension;
 use Google\Service\Indexing;
 use Google_Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -23,10 +24,7 @@ final class GoogleIndexingApi implements SingletonInterface
     public function execute(string $url, GoogleApi $type): array
     {
         try {
-            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-
             $pid = $_REQUEST['id'] ?? $_REQUEST['cmd']['pages'] ?? null;
-
             if (is_array($pid)) {
                 $pid = array_key_first($pid);
             }
@@ -38,8 +36,7 @@ final class GoogleIndexingApi implements SingletonInterface
                 ];
             }
 
-            $site = $siteFinder->getSiteByPageId($pid);
-            $jsonKey = $site->getConfiguration()['google_api_key_path'];
+            $jsonKey = Extension::getConfigFile($pid);
 
             $client = new Google_Client();
             $client->setAuthConfig($jsonKey);
@@ -99,10 +96,7 @@ final class GoogleIndexingApi implements SingletonInterface
     public function getNotificationStatus($url): array
     {
         try {
-            $siteFinder = GeneralUtility::makeInstance(SiteFinder::class);
-            $site = $siteFinder->getSiteByPageId($_REQUEST['id']);
-            $jsonKey = $site->getConfiguration()['google_api_key_path'];
-
+            $jsonKey = Extension::getConfigFile($_REQUEST['id']);
             $client = new Google_Client();
             $client->setAuthConfig($jsonKey);
             $client->addScope(Indexing::INDEXING);
