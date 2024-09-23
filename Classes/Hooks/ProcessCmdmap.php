@@ -25,7 +25,7 @@ class ProcessCmdmap
         $allowedDokType = Extension::getAllDokType();
         if ($table === 'pages' && in_array($recordToDelete['doktype'], $allowedDokType) && Extension::isConfigFileExist($id)) {
             $pages = Extension::getPage($id, $allowedDokType);
-            $apiService = GeneralUtility::makeInstance(GoogleIndexingApi::class);
+            $apiService = GeneralUtility::makeInstance(GoogleIndexingApi::class, $id);
             foreach ($pages as $page) {
                 $url = Extension::getFrontendUrl($page['uid'], $page['sys_language_uid']);
                 $response = $apiService->execute($url, GoogleApi::cast('URL_DELETED'));

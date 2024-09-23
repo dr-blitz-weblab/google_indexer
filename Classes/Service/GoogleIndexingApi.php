@@ -5,16 +5,18 @@ namespace DrBlitz\GoogleIndexer\Service;
 use DrBlitz\GoogleIndexer\Enumeration\GoogleApi;
 use DrBlitz\GoogleIndexer\Utility\Extension;
 use Google\Service\Indexing;
-use Google_Client;
 use GuzzleHttp\Exception\GuzzleException;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class GoogleIndexingApi implements SingletonInterface
 {
     private const API_URL = 'https://indexing.googleapis.com/v3';
 
+    private string $configFile = '';
+    public function __construct(int $pageId = 1)
+    {
+        $this->configFile = Extension::getConfigFile($pageId);
+    }
     /**
      * @param string $url
      * @param GoogleApi $type
@@ -36,10 +38,8 @@ final class GoogleIndexingApi implements SingletonInterface
                 ];
             }
 
-            $jsonKey = Extension::getConfigFile($pid);
-
-            $client = new Google_Client();
-            $client->setAuthConfig($jsonKey);
+            $client = new \Google_Client();
+            $client->setAuthConfig($this->configFile);
             $client->addScope(Indexing::INDEXING);
 
             // Get a Guzzle HTTP Client
@@ -96,9 +96,8 @@ final class GoogleIndexingApi implements SingletonInterface
     public function getNotificationStatus($url): array
     {
         try {
-            $jsonKey = Extension::getConfigFile($_REQUEST['id']);
-            $client = new Google_Client();
-            $client->setAuthConfig($jsonKey);
+            $client = new \Google_Client();
+            $client->setAuthConfig($this->configFile);
             $client->addScope(Indexing::INDEXING);
 
             $httpClient = $client->authorize();
