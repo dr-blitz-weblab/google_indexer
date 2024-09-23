@@ -1,6 +1,12 @@
 # Changelog
 
-## [Unreleased]
+## [2.2.1] - 2024-09-23
+
+### Fixed
+
+- Resolved issue where the site ID was not found during page deletion.
+
+## [2.2.0] - 2024-09-10
 
 ### Added
 
